@@ -10,7 +10,7 @@ Route::get('/', [authController::class, 'login'])->name('login');
 Route::post('/login', [authController::class, 'logindb'])->name('logindb');
 Route::get('/register', [authController::class, 'register'])->name('register');
 Route::post('/register', [authController::class, 'registerdb'])->name('registerdb');
-Route::get('/dashboard', [authController::class, 'dashboard'])->name('dashboard');
+Route::get('/logout', [authController::class, 'logout'])->name('logout');
 
 Route::prefix('wilayah')->name('wilayah.')->group(function () {
     Route::get('provinsi', [wilayahController::class, 'provinsi'])->name('provinsi');
@@ -19,6 +19,8 @@ Route::prefix('wilayah')->name('wilayah.')->group(function () {
     Route::get('kelurahan/{id}', [wilayahController::class, 'kelurahan'])->name('kelurahan');
 });
 
+Route::get('/dashboard', [authController::class, 'dashboard'])->name('dashboard')->middleware('auth:web');
+
 Route::prefix('job')->name('job.')->group(function () {
     Route::get('/', [jobController::class, 'index'])->name('index');
     Route::get('list', [jobController::class, 'list'])->name('list');
@@ -26,7 +28,7 @@ Route::prefix('job')->name('job.')->group(function () {
     Route::get('detail/{id}', [jobController::class, 'show'])->name('show');
     Route::put('update/{id}', [jobController::class, 'update'])->name('update');
     Route::delete('destory/{id}', [jobController::class, 'destory'])->name('destory');
-});
+})->middleware('auth:web');
 
 Route::prefix('employe')->name('employe.')->group(function () {
     Route::get('/', [employeController::class, 'index'])->name('index');
@@ -35,4 +37,4 @@ Route::prefix('employe')->name('employe.')->group(function () {
     Route::get('detail/{id}', [employeController::class, 'show'])->name('show');
     Route::put('update/{id}', [employeController::class, 'update'])->name('update');
     Route::delete('destory/{id}', [employeController::class, 'destory'])->name('destory');
-});
+})->middleware('auth:web');
