@@ -10,6 +10,7 @@ Route::get('/', [authController::class, 'login'])->name('login');
 Route::post('/login', [authController::class, 'logindb'])->name('logindb');
 Route::get('/register', [authController::class, 'register'])->name('register');
 Route::post('/register', [authController::class, 'registerdb'])->name('registerdb');
+Route::get('/dashboard', [authController::class, 'dashboard'])->name('dashboard');
 
 Route::prefix('wilayah')->name('wilayah.')->group(function () {
     Route::get('provinsi', [wilayahController::class, 'provinsi'])->name('provinsi');
