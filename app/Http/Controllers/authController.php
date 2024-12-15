@@ -12,6 +12,9 @@ class authController extends Controller
     // Menampilkan halaman login
     public function login()
     {
+        if (Auth::guard('web')->check()) {
+            return redirect()->route('dashboard');
+        }
         return view('auth.login');
     }
 
@@ -56,6 +59,9 @@ class authController extends Controller
     // Menampilkan halaman registrasi
     public function register()
     {
+        if (Auth::guard('web')->check()) {
+            return redirect()->route('dashboard');
+        }
         return view('auth.register'); // Perbaikan: arahkan ke halaman register, bukan login
     }
 
@@ -104,6 +110,16 @@ class authController extends Controller
             'success' => true,
             'message' => 'Pendaftaran berhasil'
         ], 201);  // Status HTTP 201 untuk data yang berhasil dibuat
+    }
+
+    public function logout()
+    {
+        if (Auth::guard('web')->check()) {
+            Auth::guard('web')->logout();
+            session()->flush();
+        }
+
+        return redirect()->route('login');
     }
 
     public function dashboard(){
