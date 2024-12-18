@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class authController extends Controller
@@ -124,5 +125,19 @@ class authController extends Controller
 
     public function dashboard(){
         return view('auth.dashboard');
+    }
+
+    public function foto($file = null)
+    {
+        $fullPath = "berkas/$file";
+
+        if (!Storage::disk('local')->exists($fullPath)) {
+            return null;
+        }
+        $fileContents = Storage::disk('local')->get($fullPath);
+        $mimeType = Storage::mimeType($fileContents);
+        $response = response()->make($fileContents, 200);
+        $response->headers->set('Content-Type', $mimeType);
+        return $response;
     }
 }

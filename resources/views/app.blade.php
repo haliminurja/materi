@@ -50,6 +50,7 @@
     <!-- Scripts -->
     <script src="{{ asset('assets/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/bootstrap/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/sweetalert2.js') }}"></script>
     @yield('javascript')
 </body>
 

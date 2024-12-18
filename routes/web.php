@@ -20,6 +20,7 @@ Route::prefix('wilayah')->name('wilayah.')->group(function () {
 });
 
 Route::get('/dashboard', [authController::class, 'dashboard'])->name('dashboard')->middleware('auth:web');
+Route::get('/foto/{url}', [authController::class, 'foto'])->name('foto')->middleware('auth:web');
 
 Route::prefix('job')->name('job.')->group(function () {
     Route::get('/', [jobController::class, 'index'])->name('index');
@@ -28,6 +29,8 @@ Route::prefix('job')->name('job.')->group(function () {
     Route::get('detail/{id}', [jobController::class, 'show'])->name('show');
     Route::put('update/{id}', [jobController::class, 'update'])->name('update');
     Route::delete('destory/{id}', [jobController::class, 'destory'])->name('destory');
+    //api
+    Route::get('/job', [jobController::class, 'job'])->name('job');
 })->middleware('auth:web');
 
 Route::prefix('employe')->name('employe.')->group(function () {
